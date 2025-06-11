@@ -26,6 +26,11 @@ y = randint(50, height-60)
 x_speed = 2.5
 y_speed = 2.5
 
+def tint(surf, color):
+    """Tint the surface with the given color."""
+    tinted_surf = surf.copy()
+    tinted_surf.fill(color, special_flags=pygame.BLEND_MULT)
+    return tinted_surf
 
 def move(x, y):
     screen.blit(logo, (x, y))
