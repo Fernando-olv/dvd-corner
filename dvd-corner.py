@@ -13,6 +13,7 @@ fullscreen = False  # Fullscreen
 
 logo = pygame.image.load('logo.png')
 logo = pygame.transform.scale(logo, (100, 50))
+tint_logo = logo.copy()
 clock = pygame.time.Clock()
 img_size = logo.get_rect().size
 screen = pygame.display.set_mode(SIZE)
@@ -33,17 +34,27 @@ def tint(surf, color):
     return tinted_surf
 
 def move(x, y):
-    screen.blit(logo, (x, y))
+    screen.blit(tint_logo, (x, y))
 
 
 while exit == False:
     screen.fill(BG_COLOR)
+    bounced = False
     if (x + img_size[0] >= width) or (x <= 0):
         x_speed = -x_speed
+        bounced = True
+
     if (y + img_size[1] >= height) or (y <= 0):
         y_speed = -y_speed
+        bounced = True
+    
     x += x_speed
     y += y_speed
+
+    if bounced:
+        tint_logo = tint(logo,(randint(50, 255),
+         randint(50, 255), randint(50, 255)))
+
     move(x, y)
     pygame.display.update()
     clock.tick(60)
